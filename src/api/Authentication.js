@@ -1,31 +1,33 @@
-export async function AccountSignup(email, password) {
-    const response = await fetch('http://localhost:8080/api/signup', {
-        method: 'POST',
-        headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            email: email,
-            password: password,
-        }),
-    });
+import axios from "axios";
 
-    return await response.text();
+async function signup(displayName, email, password) {
+    await axios.post("http://localhost:8080/api/signup", {
+        displayName: displayName,
+        email: email,
+        password: password
+    }).catch(e => console.log(e));
 }
 
-export async function AccountLogin(email, password) {
-    const response = await fetch('http://localhost:8080/api/login', {
-        method: 'POST',
-        headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            email: email,
-            password: password,
-        }),
-    });
+async function login(email, password) {
+    const response = await axios.post("http://localhost:8080/api/login", {
+        email: email,
+        password: password
+    }).catch(e => console.log(e));
 
-    return await response.text();
+    return response != null ? response.data : undefined;
 }
+
+
+async function getCurrentUser() {
+    const token = sessionStorage.getItem('bearer-token');
+
+    const response = await axios.get("http://localhost:8080/api/user", {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    }).catch(e => console.log(e));
+
+    return response != null ? response.data : undefined;
+}
+
+export {signup, login, getCurrentUser};

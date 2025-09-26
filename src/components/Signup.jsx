@@ -1,23 +1,34 @@
 import React, {useState} from 'react';
-import {AccountSignup} from '../api/Authentication';
 import {useNavigate} from "react-router-dom";
+import {signup} from '../api/Authentication';
 
 function Signup() {
+    const navigate = useNavigate();
+
+    const [displayName, setDisplayName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const navigate = useNavigate();
 
     function handleSubmit(e) {
         e.preventDefault();
-        const result = AccountSignup(email, password);
-        console.log(result);
+
+        signup(displayName, email, password)
+            .catch((e) => console.log(e));
+
         navigate("/profile");
     }
 
     return (
-        <div>
+        <>
             <h2>Signup</h2>
             <form onSubmit={handleSubmit}>
+                <input
+                    type="text"
+                    placeholder="Display Name"
+                    value={displayName}
+                    onChange={(e) => setDisplayName(e.target.value)}
+                    required
+                />
                 <input
                     type="email"
                     placeholder="Email"
@@ -34,8 +45,8 @@ function Signup() {
                 />
                 <button type="submit">Signup</button>
             </form>
-        </div>
+        </>
     );
-};
+}
 
 export default Signup;

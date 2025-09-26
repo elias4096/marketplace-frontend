@@ -1,17 +1,11 @@
+"use strict";
+
 import {BrowserRouter, Link, Route, Routes} from "react-router-dom";
+import Home from "./components/Home.jsx";
+import Upload from "./components/Upload.jsx";
 import Profile from "./components/Profile.jsx";
 import Login from "./components/Login.jsx";
 import Signup from "./components/Signup.jsx";
-
-// npm run dev
-
-function Home() {
-    return <h1>Home</h1>;
-}
-
-function Upload() {
-    return <h1>Upload</h1>;
-}
 
 function App() {
     return (

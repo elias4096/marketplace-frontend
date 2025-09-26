@@ -1,22 +1,24 @@
 import React, {useState} from 'react';
-import {AccountLogin} from '../api/Authentication';
 import {useNavigate} from "react-router-dom";
+import {login} from '../api/Authentication';
 
 function Login() {
+    const navigate = useNavigate();
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const navigate = useNavigate();
 
     async function handleSubmit(e) {
         e.preventDefault();
-        const result = AccountLogin(email, password);
-        sessionStorage.setItem('bearer-token', await result);
-        console.log('result: ', sessionStorage.getItem('bearer-token'));
+
+        const token = await login(email, password);
+        sessionStorage.setItem('bearer-token', token);
+
         navigate("/profile");
     }
 
     return (
-        <div>
+        <>
             <h2>Login</h2>
             <form onSubmit={handleSubmit}>
                 <input
@@ -35,8 +37,8 @@ function Login() {
                 />
                 <button type="submit">Login</button>
             </form>
-        </div>
+        </>
     );
-};
+}
 
 export default Login;
