@@ -1,28 +1,38 @@
-"use strict";
-
-import {BrowserRouter, Link, Route, Routes} from "react-router-dom";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Home from "./components/Home.jsx";
 import Upload from "./components/Upload.jsx";
 import Profile from "./components/Profile.jsx";
 import Login from "./components/Login.jsx";
 import Signup from "./components/Signup.jsx";
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+import {Container, Nav, Navbar} from "react-bootstrap";
+
 function App() {
     return (
         <BrowserRouter>
-            <nav>
-                <Link to="/">Marketplace</Link>
-                <Link to="/upload">Upload</Link>
-                <Link to="/profile">Profile</Link>
-            </nav>
+            <Navbar expand="lg" className="bg-body-tertiary">
+                <Container>
+                    <Navbar.Brand href="/">Marketplace</Navbar.Brand>
+                    <Navbar.Toggle aria-controls="basic-navbar-nav"/>
+                    <Navbar.Collapse id="basic-navbar-nav">
+                        <Nav className="me-auto">
+                            <Nav.Link href="/upload">Upload</Nav.Link>
+                            <Nav.Link href="/profile">Profile</Nav.Link>
+                        </Nav>
+                    </Navbar.Collapse>
+                </Container>
+            </Navbar>
 
-            <Routes>
-                <Route path="/" element={<Home/>}/>
-                <Route path="/upload" element={<Upload/>}/>
-                <Route path="/profile" element={<Profile/>}/>
-                <Route path="/login" element={<Login/>}/>
-                <Route path="/signup" element={<Signup/>}/>
-            </Routes>
+            <Container>
+                <Routes>
+                    <Route path="/" element={<Home/>}/>
+                    <Route path="/upload" element={<Upload/>}/>
+                    <Route path="/profile" element={<Profile/>}/>
+                    <Route path="/login" element={<Login/>}/>
+                    <Route path="/signup" element={<Signup/>}/>
+                </Routes>
+            </Container>
         </BrowserRouter>
     );
 }

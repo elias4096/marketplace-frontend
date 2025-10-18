@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
-import {useNavigate} from "react-router-dom";
 import {signup} from '../api/Authentication';
+import ResultBox from "./ResultBox'.jsx";
 
 function Signup() {
-    const navigate = useNavigate();
+    const [result, setResult] = useState(null);
 
     const [displayName, setDisplayName] = useState('');
     const [email, setEmail] = useState('');
@@ -13,14 +13,16 @@ function Signup() {
         e.preventDefault();
 
         signup(displayName, email, password)
-            .catch((e) => console.log(e));
-
-        navigate("/profile");
+            .then(r => setResult(r))
+            .catch(e => console.log(e));
     }
 
     return (
         <>
             <h2>Signup</h2>
+
+            <ResultBox result={result}/>
+
             <form onSubmit={handleSubmit}>
                 <input
                     type="text"

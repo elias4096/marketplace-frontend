@@ -1,11 +1,27 @@
 import axios from "axios";
 
-async function signup(displayName, email, password) {
-    await axios.post("http://localhost:8080/api/signup", {
+function signup(displayName, email, password) {
+    return axios.post("http://localhost:8080/api/signup", {
         displayName: displayName,
         email: email,
         password: password
-    }).catch(e => console.log(e));
+    })
+        .then(r => {
+            console.log(r.data);
+
+            return {
+                success: true,
+                message: r.data || "Signup successfully.",
+            };
+        })
+        .catch(e => {
+            console.log(e.response.data);
+
+            return {
+                success: false,
+                message: e.response.data || "Signup failed.",
+            };
+        });
 }
 
 async function login(email, password) {
