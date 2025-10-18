@@ -1,6 +1,5 @@
-import {useEffect, useState} from "react";
-import {getItems} from "../api/Item.js";
-
+import { useEffect, useState } from "react";
+import { getItems } from "../api/Item.js";
 
 function Home() {
     const [items, setItems] = useState([]);
@@ -16,7 +15,7 @@ function Home() {
     return (
         <>
             {items.map((item, index) => (
-                <div style={{backgroundColor: "orange"}}>
+                <div style={{ backgroundColor: "orange" }}>
                     <h1>{item.title} ({index})</h1>
                     <p>{item.description}</p>
                     <p>{item.price}€</p>

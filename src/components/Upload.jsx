@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from "react";
-import {getCategories, getConditions} from "../api/Static.js";
-import {createItem} from "../api/Item.js";
-import {Button, Col, Form, Row} from "react-bootstrap";
+import { useEffect, useState } from "react";
+import { Button, Col, Form, Row } from "react-bootstrap";
+import { getCategories, getConditions } from "../api/Static.js";
+import { createItem } from "../api/Item.js";
 
 function Upload() {
     const [categories, setCategories] = useState([]);
@@ -9,8 +9,8 @@ function Upload() {
 
     const [title, setTitle] = useState('');
     const [price, setPrice] = useState(0);
-    const [category, setCategory] = useState(0);
-    const [condition, setCondition] = useState(0);
+    const [category, setCategory] = useState('');
+    const [condition, setCondition] = useState('');
     const [description, setDescription] = useState('');
 
     useEffect(() => {
@@ -37,16 +37,16 @@ function Upload() {
                 </h5>
 
                 <Form onSubmit={onSubmit}>
-                    <Form.Group className="mb-3">
+                    <Form.Group controlId="formTitle">
                         <Form.Label column="sm">Title</Form.Label>
                         <Form.Control type="text"
-                                      placeholder="Enter item title"
-                                      value={title}
-                                      onChange={(e) => setTitle(e.target.value)}
-                                      required/>
+                            placeholder="Enter item title"
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)}
+                            required />
                     </Form.Group>
 
-                    <Form.Group>
+                    <Form.Group controlId="formPrice">
                         <Form.Label column="sm">Price €</Form.Label>
                         <Form.Control
                             type="number"
@@ -58,7 +58,7 @@ function Upload() {
                         />
                     </Form.Group>
 
-                    <Form.Group>
+                    <Form.Group controlId="formCategory">
                         <Form.Label column="sm">Category</Form.Label>
                         <Form.Control
                             as="select"
@@ -71,7 +71,7 @@ function Upload() {
                         </Form.Control>
                     </Form.Group>
 
-                    <Form.Group>
+                    <Form.Group controlId="formCondition">
                         <Form.Label column="sm">Condition</Form.Label>
                         <Form.Control
                             as="select"
@@ -84,16 +84,16 @@ function Upload() {
                         </Form.Control>
                     </Form.Group>
 
-                    <Form.Group className="mb-3">
+                    <Form.Group controlId="formDescription">
                         <Form.Label column="sm">Description</Form.Label>
                         <Form.Control as="textarea"
-                                      placeholder="Describe your item in detail"
-                                      value={description}
-                                      onChange={(e) => setDescription(e.target.value)}
-                                      required/>
+                            placeholder="Describe your item in detail"
+                            value={description}
+                            onChange={(e) => setDescription(e.target.value)}
+                            required />
                     </Form.Group>
 
-                    <Button variant="dark" type="submit" className="w-100">Upload</Button>
+                    <Button variant="dark" type="submit" className="w-100 mt-3">Upload</Button>
                 </Form>
             </Col>
         </Row>
