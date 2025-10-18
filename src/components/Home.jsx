@@ -1,7 +1,6 @@
 import {useEffect, useState} from "react";
 import {getItems} from "../api/Item.js";
-import {Button, Card, Col, Row} from "react-bootstrap";
-import {Link} from "react-router-dom";
+
 
 function Home() {
     const [items, setItems] = useState([]);

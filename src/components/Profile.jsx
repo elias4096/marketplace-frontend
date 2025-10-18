@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {getCurrentUser} from '../api/Authentication';
 
 function logout() {
@@ -10,6 +10,8 @@ function logout() {
 }
 
 function Profile() {
+    const navigate = useNavigate();
+
     const [user, setUser] = useState(null);
 
     useEffect(() => {
@@ -26,7 +28,10 @@ function Profile() {
         if (sessionStorage.getItem("bearer-token")) {
             fetchData().catch(e => console.log(e));
         }
-    }, []);
+        else {
+            navigate("/login");
+        }
+    }, [navigate]);
 
     const authenticated = sessionStorage.getItem("bearer-token");
 
