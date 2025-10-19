@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
-import { Form, Button, Col, Row, Container } from "react-bootstrap";
+import { Form, Button, Col, Row, Container, Alert } from "react-bootstrap";
 import { login } from '../api/Authentication';
 
 function Login() {
@@ -9,19 +9,28 @@ function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    const [error, setError] = useState('');
+
     async function onSubmit(e) {
         e.preventDefault();
 
-        const token = await login(email, password);
-        sessionStorage.setItem('bearer-token', token);
-
-        navigate("/profile");
+        login(email, password)
+            .then(r => {
+                sessionStorage.setItem('bearer-token', r.token);
+                navigate("/profile");
+            })
+            .catch(e => {
+                setError("Login failed. Please check your credentials and try again.");
+                console.error(e);
+            });
     }
 
     return (
         <Row className="justify-content-center">
             <Col md={4}>
                 <h5 className="mt-3 text-center text-dark">Login to your marketplace account</h5>
+
+                {error && <Alert variant="danger" className="mt-3">{error}</Alert>}
 
                 <Form onSubmit={onSubmit}>
                     <Form.Group controlId="formEmail">

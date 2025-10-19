@@ -1,49 +1,37 @@
 import axios from "axios";
 
-function signup(displayName, email, password) {
-    return axios.post("http://localhost:8080/api/signup", {
+// Returns newly created user if signup is successful, throws exception otherwise.
+async function signup(displayName, email, password) {
+    const response = await axios.post("http://localhost:8080/signup", {
         displayName: displayName,
         email: email,
         password: password
-    })
-        .then(r => {
-            console.log(r.data);
+    }).catch(e => { throw e; });
 
-            return {
-                success: true,
-                message: r.data || "Signup successfully.",
-            };
-        })
-        .catch(e => {
-            console.log(e.response.data);
-
-            return {
-                success: false,
-                message: e.response.data || "Signup failed.",
-            };
-        });
+    return response.data;
 }
 
+// Returns bearer token if login is successful, throws exception otherwise.
 async function login(email, password) {
-    const response = await axios.post("http://localhost:8080/api/login", {
+    const response = await axios.post("http://localhost:8080/login", {
         email: email,
         password: password
-    }).catch(e => console.log(e));
+    }).catch(e => { throw e; });
 
-    return response != null ? response.data : undefined;
+    return response.data;
 }
 
-
+// Returns current user if token is valid, null otherwise.
 async function getCurrentUser() {
     const token = sessionStorage.getItem('bearer-token');
 
-    const response = await axios.get("http://localhost:8080/api/user", {
+    const response = await axios.get("http://localhost:8080/user", {
         headers: {
             Authorization: `Bearer ${token}`
         }
-    }).catch(e => console.log(e));
+    }).catch(e => console.error(e));
 
-    return response != null ? response.data : undefined;
+    return response != null ? response : null;
 }
 
-export {signup, login, getCurrentUser};
+export { signup, login, getCurrentUser };

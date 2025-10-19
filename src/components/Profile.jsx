@@ -1,6 +1,6 @@
-import {useEffect, useState} from "react";
-import {Link, useNavigate} from "react-router-dom";
-import {getCurrentUser} from '../api/Authentication';
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { getCurrentUser } from '../api/Authentication';
 
 function logout() {
     if (sessionStorage.getItem("bearer-token")) {
@@ -17,6 +17,8 @@ function Profile() {
     useEffect(() => {
         async function fetchData() {
             const user = await getCurrentUser();
+
+            console.log("Fetched current user:", user);
 
             if (user == null) {
                 logout();
@@ -44,7 +46,7 @@ function Profile() {
                 </nav>
             ) : (
                 <>
-                    <h1>{user ? `You are logged in as: ${user.displayName}` : "Loading..."}</h1>
+                    <h1>{user ? `You are logged in as: ${user.data.displayName}` : "Loading..."}</h1>
                     <button onClick={logout}>Log out</button>
                 </>
             )}

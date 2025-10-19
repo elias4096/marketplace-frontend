@@ -1,25 +1,34 @@
 import { useState } from 'react';
-import { Link } from "react-router-dom";
-import { Form, Button, Col, Row, Container } from "react-bootstrap";
+import { Link, useNavigate } from "react-router-dom";
+import { Form, Button, Col, Row, Container, Alert } from "react-bootstrap";
 import { signup } from '../api/Authentication';
 
 function Signup() {
+    const navigate = useNavigate();
+
     const [displayName, setDisplayName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    const [error, setError] = useState('');
 
     function onSubmit(e) {
         e.preventDefault();
 
         signup(displayName, email, password)
-            .then(r => setResult(r))
-            .catch(e => console.log(e));
+            .then(r => navigate("/login"))
+            .catch(e => {
+                setError("Signup failed. This email may already be in use.");
+                console.error(e);
+            });
     }
 
     return (
         <Row className="justify-content-center">
             <Col md={4}>
                 <h5 className="mt-3 text-center text-dark">Join our marketplace community</h5>
+
+                {error && <Alert variant="danger" className="mt-3">{error}</Alert>}
 
                 <Form onSubmit={onSubmit}>
                     <Form.Group controlId="formDisplayName">
