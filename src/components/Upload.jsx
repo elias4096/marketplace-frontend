@@ -1,17 +1,20 @@
 import { useEffect, useState } from "react";
-import { Button, Col, Form, Row } from "react-bootstrap";
+import { Button, Row, Col, Form } from "react-bootstrap";
 import { getCategories, getConditions } from "../api/Static.js";
-import { createItem } from "../api/Item.js";
+import { postItem } from "../api/Item.js";
+import ResultBox from "./ResultBox.jsx";
 
 function Upload() {
     const [categories, setCategories] = useState([]);
     const [conditions, setConditions] = useState([]);
 
     const [title, setTitle] = useState('');
-    const [price, setPrice] = useState(0);
+    const [price, setPrice] = useState(1);
     const [category, setCategory] = useState('');
     const [condition, setCondition] = useState('');
     const [description, setDescription] = useState('');
+
+    const [result, setResult] = useState(null);
 
     useEffect(() => {
         async function fetchData() {
@@ -19,81 +22,68 @@ function Upload() {
             setConditions(await getConditions());
         }
 
-        fetchData().catch(e => console.log(e));
+        fetchData();
     }, []);
 
-    function onSubmit(e) {
+    async function onSubmit(e) {
         e.preventDefault();
 
-        createItem(title, description, price)
-            .catch((e) => console.log(e));
+        const result = await postItem(title, description, price);
+        setResult(result);
     }
 
     return (
         <Row className="justify-content-center">
-            <Col md={4}>
+            <Col lg={4}>
                 <h5 className="mt-3 text-center text-dark">
                     Fill out the details below to upload your item to the marketplace
                 </h5>
 
+                <ResultBox result={result} />
+
                 <Form onSubmit={onSubmit}>
-                    <Form.Group controlId="formTitle">
-                        <Form.Label column="sm">Title</Form.Label>
-                        <Form.Control type="text"
-                            placeholder="Enter item title"
-                            value={title}
-                            onChange={(e) => setTitle(e.target.value)}
-                            required />
-                    </Form.Group>
+                    <Form.Label column="sm">Title</Form.Label>
+                    <Form.Control type="text"
+                        placeholder="Enter item title"
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
+                        required />
 
-                    <Form.Group controlId="formPrice">
-                        <Form.Label column="sm">Price €</Form.Label>
-                        <Form.Control
-                            type="number"
-                            min="0"
-                            step="any"
-                            value={price}
-                            onChange={e => setPrice(e.target.value)}
-                            required
-                        />
-                    </Form.Group>
+                    <Form.Label column="sm">Price €</Form.Label>
+                    <Form.Control
+                        type="number"
+                        min="0"
+                        value={price}
+                        onChange={e => setPrice(e.target.value)}
+                        required />
 
-                    <Form.Group controlId="formCategory">
-                        <Form.Label column="sm">Category</Form.Label>
-                        <Form.Control
-                            as="select"
-                            value={category}
-                            onChange={e => setCategory(e.target.value)}
-                            required>
-                            {categories.map(x => (
-                                <option key={x} value={x}>{x}</option>
-                            ))}
-                        </Form.Control>
-                    </Form.Group>
+                    <Form.Label column="sm">Category</Form.Label>
+                    <Form.Control
+                        as="select"
+                        value={category}
+                        onChange={e => setCategory(e.target.value)}
+                        required>
+                        {categories.map(x => <option key={x} value={x}>{x}</option>)}
+                    </Form.Control>
 
-                    <Form.Group controlId="formCondition">
-                        <Form.Label column="sm">Condition</Form.Label>
-                        <Form.Control
-                            as="select"
-                            value={condition}
-                            onChange={e => setCondition(e.target.value)}
-                            required>
-                            {conditions.map(x => (
-                                <option key={x} value={x}>{x}</option>
-                            ))}
-                        </Form.Control>
-                    </Form.Group>
+                    <Form.Label column="sm">Condition</Form.Label>
+                    <Form.Control
+                        as="select"
+                        value={condition}
+                        onChange={e => setCondition(e.target.value)}
+                        required>
+                        {conditions.map(x => <option key={x} value={x}>{x}</option>)}
+                    </Form.Control>
 
-                    <Form.Group controlId="formDescription">
-                        <Form.Label column="sm">Description</Form.Label>
-                        <Form.Control as="textarea"
-                            placeholder="Describe your item in detail"
-                            value={description}
-                            onChange={(e) => setDescription(e.target.value)}
-                            required />
-                    </Form.Group>
+                    <Form.Label column="sm">Description</Form.Label>
+                    <Form.Control
+                        as="textarea"
+                        placeholder="Describe your item in detail"
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                        required />
 
-                    <Button variant="dark" type="submit" className="w-100 mt-3">Upload</Button>
+                    <Button type="submit" variant="dark" className="w-100 mt-3">Upload</Button>
                 </Form>
             </Col>
         </Row>

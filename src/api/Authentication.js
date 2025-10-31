@@ -1,37 +1,72 @@
 import axios from "axios";
 
-// Returns newly created user if signup is successful, throws exception otherwise.
-async function signup(displayName, email, password) {
-    const response = await axios.post("http://localhost:8080/signup", {
+function signup(displayName, email, password) {
+    return axios.post("http://localhost:8080/signup", {
         displayName: displayName,
         email: email,
         password: password
-    }).catch(e => { throw e; });
-
-    return response.data;
+    }).then(function (response) {
+        return {
+            success: true,
+            message: "Successful signup.",
+            data: response.data,
+        };
+    }).catch(function () {
+        return {
+            success: false,
+            message: "Failed to signup, email may already be in use.",
+            data: null,
+        };
+    });
 }
 
-// Returns bearer token if login is successful, throws exception otherwise.
-async function login(email, password) {
-    const response = await axios.post("http://localhost:8080/login", {
+function login(email, password) {
+    return axios.post("http://localhost:8080/login", {
         email: email,
         password: password
-    }).catch(e => { throw e; });
-
-    return response.data;
+    }).then(function (response) {
+        return {
+            success: true,
+            message: "Successful login.",
+            data: response.data,
+        };
+    }).catch(function () {
+        return {
+            success: false,
+            message: "Failed to login, check your credentials and try again.",
+            data: null,
+        };
+    });
 }
 
-// Returns current user if token is valid, null otherwise.
-async function getCurrentUser() {
+function getCurrentUser() {
     const token = sessionStorage.getItem('bearer-token');
 
-    const response = await axios.get("http://localhost:8080/user", {
+    if (token == null) {
+        return {
+            success: false,
+            message: "Failed to find current user, you are not authenticated.",
+            data: null,
+        };
+    }
+
+    return axios.get("http://localhost:8080/user", {
         headers: {
             Authorization: `Bearer ${token}`
         }
-    }).catch(e => console.error(e));
-
-    return response != null ? response : null;
+    }).then(function (response) {
+        return {
+            success: true,
+            message: "Found current user successfully.",
+            data: response.data,
+        };
+    }).catch(function () {
+        return {
+            success: false,
+            message: "Failed to find current user, please try again.",
+            data: null,
+        };
+    });
 }
 
 export { signup, login, getCurrentUser };

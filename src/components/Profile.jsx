@@ -1,13 +1,7 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { getCurrentUser } from '../api/Authentication';
-
-function logout() {
-    if (sessionStorage.getItem("bearer-token")) {
-        sessionStorage.removeItem("bearer-token");
-        window.location.reload();
-    }
-}
+import ResultBox from "./ResultBox";
 
 function Profile() {
     const navigate = useNavigate();
@@ -16,39 +10,45 @@ function Profile() {
 
     useEffect(() => {
         async function fetchData() {
-            const user = await getCurrentUser();
+            const result = await getCurrentUser();
 
-            console.log("Fetched current user:", user);
-
-            if (user == null) {
+            if (result.success == false) {
                 logout();
+            } else {
+                setUser(result.data);
             }
-
-            setUser(user);
         }
 
         if (sessionStorage.getItem("bearer-token")) {
-            fetchData().catch(e => console.log(e));
+            fetchData();
         }
         else {
             navigate("/login");
         }
-    }, [navigate]);
+    }, []);
 
-    const authenticated = sessionStorage.getItem("bearer-token");
+    function logout() {
+        if (sessionStorage.getItem("bearer-token")) {
+            sessionStorage.removeItem("bearer-token");
+            window.location.reload();
+        }
+    }
 
     return (
         <div>
-            {!authenticated ? (
-                <nav>
-                    <Link to="/login">Login</Link>
-                    <Link to="/signup">Signup</Link>
-                </nav>
+            {!sessionStorage.getItem("bearer-token") ? (
+                <ResultBox result={{
+                    success: false,
+                    message: "You are not authenticated.",
+                    data: null
+                }} />
             ) : (
-                <>
-                    <h1>{user ? `You are logged in as: ${user.data.displayName}` : "Loading..."}</h1>
-                    <button onClick={logout}>Log out</button>
-                </>
+                user == null ? (<h1>Loading...</h1>) : (
+                    <>
+                        <h1>Display name: {user.displayName}</h1>
+                        <button onClick={logout}>Log out</button>
+                    </>
+                )
             )}
         </div>
     );

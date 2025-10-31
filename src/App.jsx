@@ -1,4 +1,4 @@
-import {BrowserRouter, Route, Routes} from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./components/Home.jsx";
 import Upload from "./components/Upload.jsx";
 import Profile from "./components/Profile.jsx";
@@ -6,7 +6,7 @@ import Login from "./components/Login.jsx";
 import Signup from "./components/Signup.jsx";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Container, Nav, Navbar} from "react-bootstrap";
+import { Container, Nav, Navbar } from "react-bootstrap";
 
 function App() {
     return (
@@ -14,7 +14,7 @@ function App() {
             <Navbar expand="lg" className="bg-body-tertiary">
                 <Container>
                     <Navbar.Brand href="/">Marketplace</Navbar.Brand>
-                    <Navbar.Toggle aria-controls="basic-navbar-nav"/>
+                    <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">
                             <Nav.Link href="/upload">Upload</Nav.Link>
@@ -26,11 +26,11 @@ function App() {
 
             <Container>
                 <Routes>
-                    <Route path="/" element={<Home/>}/>
-                    <Route path="/upload" element={<Upload/>}/>
-                    <Route path="/profile" element={<Profile/>}/>
-                    <Route path="/login" element={<Login/>}/>
-                    <Route path="/signup" element={<Signup/>}/>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/upload" element={<Upload />} />
+                    <Route path="/profile" element={<Profile />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/signup" element={<Signup />} />
                 </Routes>
             </Container>
         </BrowserRouter>
