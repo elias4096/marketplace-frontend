@@ -1,41 +1,57 @@
 import axios from "axios";
-import { getCurrentUser } from "./Authentication.js";
+import { authenticatedUser } from "./Authentication.js";
+
+function getItemById(itemId) {
+    return axios.get(`http://localhost:8080/items/${itemId}`)
+        .then(response => response.data);
+}
 
 function getItems() {
     return axios.get("http://localhost:8080/items")
         .then(response => response.data);
 }
 
-async function postItem(title, description, price) {
-    const user = await getCurrentUser();
+function getItemsByUserId(userId) {
+    const token = sessionStorage.getItem('bearer-token');
 
-    if (user == null) {
-        return {
-            success: false,
-            message: "Failed to upload item, user not logged in.",
-            data: null,
-        };
-    }
+    return axios.get(`http://localhost:8080/user/items/${userId}`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: "application/json"
+        }
+    }).then(response => response.data);
+}
 
-    return axios.post('http://localhost:8080/items', {
-        sellerUserId: user.id,
-        sellerDisplayName: user.displayName,
-        title: title,
-        description: description,
-        price: price
-    }).then(function (response) {
-        return {
-            success: true,
-            message: "Item uploaded successfully.",
-            data: response.data,
-        };
-    }).catch(function () {
-        return {
-            success: false,
-            message: "Failed to upload item, try again later.",
-            data: null,
-        };
+function postItem(title, description, price, category, quality, location) {
+    return authenticatedUser()
+        .then(response => {
+            return axios.post('http://localhost:8080/items', {
+                sellerUserId: response.data.id,
+                sellerDisplayName: response.data.displayName,
+                title: title,
+                description: description,
+                price: price,
+                category: category,
+                quality: quality,
+                location: location,
+            });
+        });
+}
+
+function putItem(itemId, title, description, price, category, quality, location) {
+}
+
+function deleteItem(itemId) {
+    const token = sessionStorage.getItem('bearer-token');
+
+    return axios.delete(`http://localhost:8080/user/items`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+        data: {
+            itemId: itemId,
+        }
     });
 }
 
-export { getItems, postItem };
+export { getItemById, getItems, getItemsByUserId, postItem, putItem, deleteItem };

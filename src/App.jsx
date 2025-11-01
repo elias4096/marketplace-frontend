@@ -1,12 +1,13 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./components/Home.jsx";
+import Item from "./components/Item.jsx";
 import Upload from "./components/Upload.jsx";
 import Profile from "./components/Profile.jsx";
 import Login from "./components/Login.jsx";
 import Signup from "./components/Signup.jsx";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Container, Nav, Navbar } from "react-bootstrap";
+import { Container, Navbar, Nav } from "react-bootstrap";
 
 function App() {
     return (
@@ -27,6 +28,7 @@ function App() {
             <Container>
                 <Routes>
                     <Route path="/" element={<Home />} />
+                    <Route path="/item/:id" element={<Item />} />
                     <Route path="/upload" element={<Upload />} />
                     <Route path="/profile" element={<Profile />} />
                     <Route path="/login" element={<Login />} />

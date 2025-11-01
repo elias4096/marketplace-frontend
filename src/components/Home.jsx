@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
-import { Link } from 'react-router-dom';
-import Card from 'react-bootstrap/Card';
-import Container from 'react-bootstrap/Container';
+import { Link } from "react-router-dom";
+import { Row, Col } from "react-bootstrap";
+import ListGroup from 'react-bootstrap/ListGroup';
+import Stack from 'react-bootstrap/Stack';
 import { getItems } from "../api/Item.js";
+import { formatDate } from "../Utilities.js";
 
 function Home() {
     const [items, setItems] = useState([]);
@@ -12,43 +14,42 @@ function Home() {
             setItems(await getItems());
         }
 
-        fetchData().catch(e => console.log(e));
+        fetchData();
     }, []);
 
-    return (
-        <Container className="py-4">
-            <div
-                style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-                    gap: '1rem',
-                    justifyItems: 'center'
-                }}
-            >
-                {items.map((item, index) => (
-                    <Card as={Link} to={`/item/${item.id}`}
-                        key={item.id ?? index}
-                        style={{ width: '100%', maxWidth: 400 }}>
-                        <Card.Img
-                            variant="top"
-                            src={item.imageUrl || 'src/assets/react.svg'}
-                            style={{ objectFit: 'contain', height: 300 }}
-                        />
+    const listItems = items.map(i =>
+        <ListGroup.Item key={i.id} as={Link} to={`/item/${i.id}`}>
+            <Stack direction="horizontal" gap={3}>
+                <img
+                    width={100}
+                    src={"src/assets/react.svg"}
+                    alt={"src/assets/react.svg"}
+                />
 
-                        <Card.Body>
-                            <Card.Title>{item.title}</Card.Title>
-                            <Card.Subtitle className="mb-2 text-muted">2025-10-20</Card.Subtitle>
+                <Stack>
+                    <div className="d-flex justify-content-between">
+                        <p className="fw-light fst-italic"><b>Category: </b>{i.category} ‣ <b>Quality: </b>{i.quality}</p>
+                        <p className="text-end fw-light">{formatDate(i.createdAt)}</p>
+                    </div>
 
-                            <div className="d-flex justify-content-between align-items-start">
-                                <Card.Text><b>{item.price}€</b></Card.Text>
-                                <Card.Text className="text-end">Eindhoven</Card.Text>
-                            </div>
-                        </Card.Body>
-                    </Card>
-                ))}
-            </div>
-        </Container>
+                    <p>{i.title}</p>
+
+                    <div className="d-flex justify-content-between">
+                        <p><b>{i.price}€</b></p>
+                        <p className="text-end fw-light">{i.location}</p>
+                    </div>
+                </Stack>
+            </Stack>
+        </ListGroup.Item>
     );
+
+    return (
+        <Row className="justify-content-center">
+            <Col lg={8}>
+                <ListGroup>{listItems}</ListGroup>
+            </Col>
+        </Row>
+    )
 }
 
 export default Home;
