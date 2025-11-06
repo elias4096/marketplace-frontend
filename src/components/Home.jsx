@@ -4,7 +4,7 @@ import { Row, Col } from "react-bootstrap";
 import ListGroup from 'react-bootstrap/ListGroup';
 import Stack from 'react-bootstrap/Stack';
 import { getItems } from "../api/Item.js";
-import { formatDate } from "../Utilities.js";
+import { formatDateAndTime } from "../Utilities.js";
 
 function Home() {
     const [items, setItems] = useState([]);
@@ -29,7 +29,7 @@ function Home() {
                 <Stack>
                     <div className="d-flex justify-content-between">
                         <p className="fw-light fst-italic"><b>Category: </b>{i.category} ‣ <b>Quality: </b>{i.quality}</p>
-                        <p className="text-end fw-light">{formatDate(i.createdAt)}</p>
+                        <p className="text-end fw-light">{formatDateAndTime(i.createdAt)}</p>
                     </div>
 
                     <p>{i.title}</p>

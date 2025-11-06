@@ -16,6 +16,7 @@ function Upload() {
     const [quality, setQuality] = useState("");
     const [location, setLocation] = useState("");
     const [description, setDescription] = useState("");
+    const [image, setImage] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
 
@@ -26,8 +27,16 @@ function Upload() {
         setLoading(false);
     }, []);
 
+    function onImageChange(e) {
+        e.preventDefault();
+
+        setImage(e.target.files[0]);
+    }
+
     function onSubmit(e) {
         e.preventDefault();
+
+        console.log(image);
 
         postItem(title, description, price, category, quality, location)
             .then(() => {
@@ -98,6 +107,12 @@ function Upload() {
                                 value={description}
                                 onChange={(e) => setDescription(e.target.value)}
                                 required />
+
+                            <Form.Label column="sm">Upload pictures of your item</Form.Label>
+                            <Form.Control
+                                type="file"
+                                accept="image/*"
+                                onChange={onImageChange} />
 
                             <Button type="submit" variant="dark" className="w-100 my-2">Upload</Button>
                         </Form>

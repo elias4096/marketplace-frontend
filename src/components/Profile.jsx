@@ -3,7 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { Container, Row, Col, Table, ButtonGroup, Button, Alert } from "react-bootstrap";
 import { authenticatedUser } from '../api/Authentication';
 import { getItemsByUserId, deleteItem } from '../api/Item.js';
-import { formatDate } from "../Utilities.js";
+import { formatDate, formatDateAndTime } from "../Utilities.js";
 import { Loader } from "./Loader.jsx";
 
 function Profile() {
@@ -76,7 +76,7 @@ function Profile() {
                                 <tr>
                                     <td>{user.data.displayName}</td>
                                     <td>{user.data.email}</td>
-                                    <td>2025-11-01 (Todo)</td>
+                                    <td>{formatDate(user.data.createdAt)}</td>
                                     <td className="text-end">
                                         <ButtonGroup size="sm">
                                             <Button onClick={() => OnLogoutClick()} variant="primary">Log out</Button>
@@ -104,7 +104,7 @@ function Profile() {
                                     <tr key={i.id}>
                                         <td><Link to={`/item/${i.id}`} className="text-dark">{i.title}</Link></td>
                                         <td>{i.price}€</td>
-                                        <td>{formatDate(i.createdAt)}</td>
+                                        <td>{formatDateAndTime(i.createdAt)}</td>
                                         <td className="text-end">
                                             <ButtonGroup size="sm">
                                                 <Button variant="dark">Edit</Button>

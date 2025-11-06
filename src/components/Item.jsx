@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { Container, Row, Col, Table, Carousel, Image, Badge, Button, Alert } from "react-bootstrap";
 import { Loader } from "./Loader.jsx";
 import { getItemById } from "../api/Item.js";
-import { formatDate } from "../Utilities.js";
+import { formatDateAndTime } from "../Utilities.js";
 
 function Item() {
     const { id } = useParams();
@@ -68,7 +68,7 @@ function Item() {
                                     </tr>
                                     <tr>
                                         <td className="text-muted">Date</td>
-                                        <td>{formatDate(item.createdAt)}</td>
+                                        <td>{formatDateAndTime(item.createdAt)}</td>
                                     </tr>
                                 </tbody>
                             </Table>
