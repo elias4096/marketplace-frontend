@@ -54,7 +54,7 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v3
         with:
-          context: ./build
+          context: ./dist
           file: Dockerfile
           push: true
           tags: bryrmiginte/marketplace-frontend:latest
