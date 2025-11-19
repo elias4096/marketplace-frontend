@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Form, Row, Col, Button, Alert, Container } from "react-bootstrap";
 import { postItem } from "../api/Item.js";
 import { Loader } from "./Loader.jsx";
+import { postImage } from "../api/Image.js";
 
 function Upload() {
     const categories = ["Electronics", "Books", "Clothing", "Furniture", "Toys"];
@@ -29,17 +30,20 @@ function Upload() {
 
     function onImageChange(e) {
         e.preventDefault();
-
         setImage(e.target.files[0]);
     }
 
     function onSubmit(e) {
         e.preventDefault();
 
-        console.log(image);
-
         postItem(title, description, price, category, quality, location)
-            .then(() => {
+            .then(item => {
+                postImage(item.data.id, image)
+                    .catch(e => {
+                        setError(e);
+                        return;
+                    });
+
                 navigate("/profile");
             }).catch(() => {
                 setError("Failed to post item.");

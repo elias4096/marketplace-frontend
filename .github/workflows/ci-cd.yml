@@ -23,6 +23,9 @@ jobs:
       - name: Build for production
         run: npm run build
 
+      - name: Run ESLint
+        run: npm run lint
+
       - name: Upload build output
         uses: actions/upload-artifact@v4
         with:
@@ -52,7 +55,7 @@ jobs:
         with:
           username: bryrmiginte
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      
+
       - name: Build and push Docker image
         uses: docker/build-push-action@v3
         with:

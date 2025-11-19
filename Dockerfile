@@ -5,7 +5,7 @@ FROM node:18-alpine
 COPY package*.json ./
 RUN npm install
 COPY . .
-RUN npm run build
+CMD ["npm", "run", "dev"]
 
 FROM nginx:stable-alpine AS production
 COPY /dist /usr/share/nginx/html

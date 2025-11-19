@@ -27,7 +27,7 @@ function Profile() {
         else {
             navigate("/login");
         }
-    }, []);
+    }, [navigate]);
 
     function updateUserItems(userId) {
         getItemsByUserId(userId).then(data => {

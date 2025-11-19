@@ -22,7 +22,9 @@ function Home() {
             <Stack direction="horizontal" gap={3}>
                 <img
                     width={100}
-                    src={"src/assets/react.svg"}
+                    height={100}
+                    className="object-fit-contain"
+                    src={`http://localhost:8080/images/${i.id}.png`}
                     alt={"src/assets/react.svg"}
                 />
 

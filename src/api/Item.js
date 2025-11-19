@@ -38,9 +38,6 @@ function postItem(title, description, price, category, quality, location) {
         });
 }
 
-function putItem(itemId, title, description, price, category, quality, location) {
-}
-
 function deleteItem(itemId) {
     const token = sessionStorage.getItem('bearer-token');
 
@@ -54,4 +51,4 @@ function deleteItem(itemId) {
     });
 }
 
-export { getItemById, getItems, getItemsByUserId, postItem, putItem, deleteItem };
+export { getItemById, getItems, getItemsByUserId, postItem, deleteItem };

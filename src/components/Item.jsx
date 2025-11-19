@@ -8,6 +8,7 @@ import { formatDateAndTime } from "../Utilities.js";
 function Item() {
     const { id } = useParams();
     const [item, setItem] = useState(null);
+    //const [itemImageURL, setItemImageURL] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -29,17 +30,16 @@ function Item() {
             <Row className="justify-content-center">
                 <Col lg={8}>
                     <Row>
-                        <Carousel>
-                            <Carousel.Item
-                                className="d-flex justify-content-center bg-dark"
-                                style={{ height: 512 }}>
-                                <Image
-                                    src="../src/assets/images.jpg"
-                                    alt="../src/assets/react.svg"
-                                    style={{ width: '100%', height: '100%', objectFit: 'contain' }}
-                                />
-                            </Carousel.Item>
-                        </Carousel>
+                        <Container
+                            className="d-flex justify-content-center bg-dark"
+                            style={{ height: 512 }}>
+
+                            <Image
+                                src={`http://localhost:8080/images/${item.id}.png`}
+                                alt="../src/assets/react.svg"
+                                style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                            />
+                        </Container>
                     </Row>
                     <Row>
                         <Col>
