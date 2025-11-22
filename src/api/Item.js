@@ -41,13 +41,10 @@ function postItem(title, description, price, category, quality, location) {
 function deleteItem(itemId) {
     const token = sessionStorage.getItem('bearer-token');
 
-    return axios.delete(`http://localhost:8080/user/items`, {
+    return axios.delete(`http://localhost:8080/user/items/${itemId}`, {
         headers: {
             Authorization: `Bearer ${token}`,
         },
-        data: {
-            itemId: itemId,
-        }
     });
 }
 
