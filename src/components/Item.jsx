@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Container, Row, Col, Table, Carousel, Image, Badge, Button, Alert } from "react-bootstrap";
+import { Container, Row, Col, Table, Image, Badge, Button, Alert } from "react-bootstrap";
 import { Loader } from "./Loader.jsx";
 import { getItemById } from "../api/Item.js";
 import { formatDateAndTime } from "../Utilities.js";
@@ -8,7 +8,6 @@ import { formatDateAndTime } from "../Utilities.js";
 function Item() {
     const { id } = useParams();
     const [item, setItem] = useState(null);
-    //const [itemImageURL, setItemImageURL] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 

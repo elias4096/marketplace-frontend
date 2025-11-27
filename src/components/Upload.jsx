@@ -39,12 +39,13 @@ function Upload() {
         postItem(title, description, price, category, quality, location)
             .then(item => {
                 postImage(item.data.id, image)
+                    .then(() => {
+                        navigate("/profile");
+                    })
                     .catch(e => {
                         setError(e);
-                        return;
                     });
 
-                navigate("/profile");
             }).catch(() => {
                 setError("Failed to post item.");
             });

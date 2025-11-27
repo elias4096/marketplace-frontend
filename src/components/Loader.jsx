@@ -3,7 +3,7 @@ import Spinner from 'react-bootstrap/Spinner';
 function Loader() {
     return (
         <div className="d-flex justify-content-center my-5">
-            <Spinner animation="border" role="status">
+            <Spinner animation="border" role="output">
                 <span className="visually-hidden">Loading...</span>
             </Spinner>
         </div>
