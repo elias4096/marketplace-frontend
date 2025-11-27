@@ -1,8 +1,11 @@
 # docker build -t marketplace-frontend .
 # docker run -p 80:80 marketplace-frontend
 
-
-# Todo: is "npm run dev" neccessary? We already do build in github .yml
+# Note: all of this is already being done in the ci.yml
+# FROM node:18-alpine
+# COPY package*.json ./
+# RUN npm install
+# COPY . .
 # CMD ["npm", "run", "dev"]
 
 FROM nginx:1.28.0
