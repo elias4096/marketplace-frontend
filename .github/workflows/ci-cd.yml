@@ -60,7 +60,7 @@ jobs:
         path: dist
 
     - name: Run preview
-      run: npm run preview
+      run: nohup npm run preview &
 
     - name: Run Playwright tests
       run: npx playwright test
