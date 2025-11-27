@@ -25,16 +25,18 @@ function App() {
                 </Container>
             </Navbar>
 
-            <Container>
-                <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/item/:id" element={<Item />} />
-                    <Route path="/upload" element={<Upload />} />
-                    <Route path="/profile" element={<Profile />} />
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/signup" element={<Signup />} />
-                </Routes>
-            </Container>
+            <main>
+                <Container>
+                    <Routes>
+                        <Route path="/" element={<Home />} />
+                        <Route path="/item/:id" element={<Item />} />
+                        <Route path="/upload" element={<Upload />} />
+                        <Route path="/profile" element={<Profile />} />
+                        <Route path="/login" element={<Login />} />
+                        <Route path="/signup" element={<Signup />} />
+                    </Routes>
+                </Container>
+            </main>
         </BrowserRouter>
     );
 }

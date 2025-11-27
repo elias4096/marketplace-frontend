@@ -5,6 +5,7 @@ FROM node:18-alpine
 COPY package*.json ./
 RUN npm install
 COPY . .
+# Todo: is "npm run dev" neccessary? We already do build in github .yml
 CMD ["npm", "run", "dev"]
 
 FROM nginx:stable-alpine AS production
