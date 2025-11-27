@@ -59,8 +59,10 @@ jobs:
         name: marketplace-frontend
         path: dist
 
-    - name: Run preview
-      run: nohup npm run preview &
+    - name: Run preview server
+      run: |
+        npm run preview &
+        sleep 10
 
     - name: Run Playwright tests
       run: npx playwright test
