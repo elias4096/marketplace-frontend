@@ -36,6 +36,7 @@ function Signup() {
                             <Form.Control
                                 type="text"
                                 placeholder="Enter your display name"
+                                data-testid="displayName"
                                 value={displayName}
                                 onChange={(e) => setDisplayName(e.target.value)}
                                 required />
@@ -44,6 +45,7 @@ function Signup() {
                             <Form.Control
                                 type="email"
                                 placeholder="Enter your email"
+                                data-testid="email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 required />
@@ -52,11 +54,12 @@ function Signup() {
                             <Form.Control
                                 type="password"
                                 placeholder="Enter your password"
+                                data-testid="password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 required />
 
-                            <Button type="submit" variant="dark" className="w-100 mt-4">Signup</Button>
+                            <Button type="submit" variant="dark" className="w-100 mt-4" data-testid="signupButton">Signup</Button>
                         </Form>
 
                         <div className="text-center my-2">

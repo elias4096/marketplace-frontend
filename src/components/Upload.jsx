@@ -66,6 +66,7 @@ function Upload() {
                             <Form.Label column="sm">Title</Form.Label>
                             <Form.Control type="text"
                                 placeholder="Enter item title"
+                                data-testid="title"
                                 value={title}
                                 onChange={(e) => setTitle(e.target.value)}
                                 required />
@@ -109,6 +110,7 @@ function Upload() {
                             <Form.Control
                                 as="textarea"
                                 placeholder="Describe your item in detail"
+                                data-testid="description"
                                 value={description}
                                 onChange={(e) => setDescription(e.target.value)}
                                 required />
@@ -116,11 +118,11 @@ function Upload() {
                             <Form.Label column="sm">Upload pictures of your item</Form.Label>
                             <Form.Control
                                 type="file"
-                                data-testid="file-input"
+                                data-testid="imageUpload"
                                 accept="image/*"
                                 onChange={onImageChange} />
 
-                            <Button type="submit" variant="dark" className="w-100 my-2">Upload</Button>
+                            <Button type="submit" variant="dark" className="w-100 my-2" data-testid="uploadButton">Upload</Button>
                         </Form>
                     </Container>
                 </Col>

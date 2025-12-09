@@ -36,6 +36,7 @@ function Login() {
                             <Form.Control
                                 type="email"
                                 placeholder="Enter your email"
+                                data-testid="loginEmail"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 required />
@@ -44,11 +45,12 @@ function Login() {
                             <Form.Control
                                 type="password"
                                 placeholder="Enter your password"
+                                data-testid="loginPassword"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 required />
 
-                            <Button type="submit" variant="dark" className="w-100 mt-4">Log in</Button>
+                            <Button type="submit" variant="dark" className="w-100 mt-4" data-testid="loginButton">Log in</Button>
                         </Form>
 
                         <div className="text-center my-2">
