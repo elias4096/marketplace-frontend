@@ -31,6 +31,7 @@ function Upload() {
     function onImageChange(e) {
         e.preventDefault();
         setImage(e.target.files[0]);
+        console.log(e.target.files[0]);
     }
 
     function onSubmit(e) {
@@ -45,7 +46,6 @@ function Upload() {
                     .catch(e => {
                         setError(e);
                     });
-
             }).catch(() => {
                 setError("Failed to post item.");
             });
@@ -116,6 +116,7 @@ function Upload() {
                             <Form.Label column="sm">Upload pictures of your item</Form.Label>
                             <Form.Control
                                 type="file"
+                                data-testid="file-input"
                                 accept="image/*"
                                 onChange={onImageChange} />
 
