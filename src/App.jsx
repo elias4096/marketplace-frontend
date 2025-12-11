@@ -1,3 +1,4 @@
+import { Container, Navbar, Nav } from "react-bootstrap";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./components/Home.jsx";
 import Item from "./components/Item.jsx";
@@ -5,9 +6,9 @@ import Upload from "./components/Upload.jsx";
 import Profile from "./components/Profile.jsx";
 import Login from "./components/Login.jsx";
 import Signup from "./components/Signup.jsx";
+import Chat from "./components/Chat.jsx";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Container, Navbar, Nav } from "react-bootstrap";
 
 function App() {
     return (
@@ -34,6 +35,7 @@ function App() {
                         <Route path="/profile" element={<Profile />} />
                         <Route path="/login" element={<Login />} />
                         <Route path="/signup" element={<Signup />} />
+                        <Route path="/chat" element={<Chat />} />
                     </Routes>
                 </Container>
             </main>

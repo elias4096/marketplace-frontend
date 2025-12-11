@@ -72,7 +72,7 @@ function Item() {
                                 </tbody>
                             </Table>
 
-                            <Button variant="dark" className="w-100">
+                            <Button href="/chat" variant="dark" className="w-100">
                                 Chat with {item.sellerDisplayName}
                             </Button>
                         </Col>
