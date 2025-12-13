@@ -38,6 +38,30 @@ function postItem(title, description, price, category, quality, location) {
         });
 }
 
+function putItem(itemId, title, description, price, category, quality, location) {
+    const token = sessionStorage.getItem('bearer-token');
+
+    return authenticatedUser()
+        .then(response => {
+            return axios.put(`http://localhost:8080/items/${itemId}`, {
+                sellerUserId: response.data.id,
+                sellerDisplayName: response.data.displayName,
+                title: title,
+                description: description,
+                price: price,
+                category: category,
+                quality: quality,
+                location: location,
+            }, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    Accept: "application/json"
+                }
+            });
+        });
+}
+
+
 function deleteItem(itemId) {
     const token = sessionStorage.getItem('bearer-token');
 
@@ -48,4 +72,4 @@ function deleteItem(itemId) {
     });
 }
 
-export { getItemById, getItems, getItemsByUserId, postItem, deleteItem };
+export { getItemById, getItems, getItemsByUserId, postItem, putItem, deleteItem };

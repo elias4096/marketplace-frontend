@@ -5,6 +5,7 @@ import { authenticatedUser } from '../api/Authentication';
 import { getItemsByUserId, deleteItem } from '../api/Item.js';
 import { formatDate, formatDateAndTime } from "../Utilities.js";
 import { Loader } from "./Loader.jsx";
+import EditItemModal from "./modals/EditItemModal.jsx";
 
 function Profile() {
     const navigate = useNavigate();
@@ -12,6 +13,9 @@ function Profile() {
     const [userItems, setUserItems] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
+
+    const [showEditModal, setShowEditModal] = useState(false);
+    const [editItemId, setEditItemId] = useState(null);
 
     useEffect(() => {
         if (sessionStorage.getItem("bearer-token")) {
@@ -44,6 +48,11 @@ function Profile() {
         window.location.reload();
     }
 
+    function onEditItemClick(itemId) {
+        setEditItemId(itemId);
+        setShowEditModal(true);
+    }
+
     function onDeleteItemClick(itemId) {
         deleteItem(itemId)
             .then(() => {
@@ -58,6 +67,11 @@ function Profile() {
 
     return (
         <Container className="my-4">
+            <EditItemModal show={showEditModal} onClose={() => {
+                setShowEditModal(false);
+                updateUserItems(user.data.id);
+            }} itemId={editItemId} />
+
             <Row className="justify-content-center">
                 <Col lg={8}>
                     <h2 className="fw-bold">Account</h2>
@@ -107,7 +121,7 @@ function Profile() {
                                         <td>{formatDateAndTime(i.createdAt)}</td>
                                         <td className="text-end">
                                             <ButtonGroup size="sm">
-                                                <Button variant="dark">Edit</Button>
+                                                <Button onClick={() => onEditItemClick(i.id)} variant="dark">Edit</Button>
                                                 <Button onClick={() => onDeleteItemClick(i.id)} variant="danger">Delete</Button>
                                             </ButtonGroup>
                                         </td>
@@ -117,7 +131,7 @@ function Profile() {
                     </Container>
                 </Col>
             </Row>
-        </Container>
+        </Container >
     );
 }
 
