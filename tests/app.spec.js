@@ -3,7 +3,7 @@
 // Note: don't forget to remove the test@mail.com user before running this test.
 // npx playwright test
 
-import { test, expect } from '@playwright/test';
+import { test } from '@playwright/test';
 
 test.describe('navigation', () => {
     test.beforeEach(async ({ page }) => {

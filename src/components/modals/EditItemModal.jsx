@@ -13,11 +13,9 @@ function EditItemModal({ show, onClose, itemId }) {
     const [quality, setQuality] = useState("");
     const [location, setLocation] = useState("");
     const [description, setDescription] = useState("");
-    const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
 
     useEffect(() => {
-        console.log("Item ID:", itemId);
         if (itemId == null) return;
 
         getItemById(itemId)
