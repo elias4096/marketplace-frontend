@@ -56,7 +56,7 @@ function Chat() {
             <Row className="justify-content-center">
                 <Col lg={4}>
                     <h2 className="fw-bold">Chat</h2>
-                    <h6 className="text-muted">If this does not work, I will be very angry at Jessica!</h6>
+                    <h6 className="text-muted">You are chatting with {user?.data?.displayName}</h6>
 
                     {
                         messages.map((msg, index) => (
