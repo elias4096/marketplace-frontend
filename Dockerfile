@@ -6,7 +6,7 @@ FROM node:18-alpine
 COPY package*.json ./
 RUN npm install
 COPY . .
-RUN npm build
+RUN npm run build
 CMD ["npm", "run", "preview"]
 
 #FROM nginx:1.28.0
