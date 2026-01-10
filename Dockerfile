@@ -3,6 +3,7 @@
 
 # Note: all of this is already being done in the ci.yml
 FROM node:18-alpine
+WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
