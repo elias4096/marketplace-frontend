@@ -4,7 +4,7 @@
 # Note: all of this is already being done in the ci.yml
 FROM node:18-alpine
 WORKDIR /app
-COPY /app/package*.json ./
+COPY package*.json /app
 RUN npm install
 COPY . .
 RUN npm run build
