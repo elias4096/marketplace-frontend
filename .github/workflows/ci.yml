@@ -24,7 +24,6 @@ jobs:
       - name: Build for production
         run: npm run build
 
-        # Todo: move to test stage
       - name: Run ESLint
         run: npm run lint
 
